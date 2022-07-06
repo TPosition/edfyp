@@ -20,8 +20,11 @@ class User extends Equatable {
     required final this.country,
     required final this.postCode,
     required final this.city,
-    required final this.state,
+    required final this.province,
     required final this.marital,
+    required final this.registrationNumber,
+    required final this.registrationType,
+    required final this.companyType,
   });
 
   final String uid;
@@ -39,8 +42,11 @@ class User extends Equatable {
   final String country;
   final String postCode;
   final String city;
-  final String state;
+  final String province;
   final String marital;
+  final String registrationNumber;
+  final String registrationType;
+  final String companyType;
 
   User copyWith({
     final double? balance,
@@ -57,8 +63,11 @@ class User extends Equatable {
     final String? country,
     final String? postCode,
     final String? city,
-    final String? state,
+    final String? province,
     final String? marital,
+    final String? registrationNumber,
+    final String? registrationType,
+    final String? companyType,
   }) =>
       User(
         uid: uid,
@@ -76,13 +85,16 @@ class User extends Equatable {
         country: country ?? this.country,
         postCode: postCode ?? this.postCode,
         city: city ?? this.city,
-        state: state ?? this.state,
+        province: province ?? this.province,
         marital: marital ?? this.marital,
+        registrationNumber: registrationNumber ?? this.registrationNumber,
+        registrationType: registrationType ?? this.registrationType,
+        companyType: companyType ?? this.companyType,
       );
 
   @override
   String toString() =>
-      'User{uid: $uid,balance: $balance,displayName: $displayName,email: $email,mobile: $mobile,photoURL: $photoURL,address: $address, gender: $gender,fname: $fname, lname: $lname, nationality: $nationality, passport: $passport, country: $country, postCode: $postCode, city: $city, state: $state, marital: $marital}';
+      'User{uid: $uid,balance: $balance,displayName: $displayName,email: $email,mobile: $mobile,photoURL: $photoURL,address: $address, gender: $gender,fname: $fname, lname: $lname, nationality: $nationality, passport: $passport, country: $country, postCode: $postCode, city: $city, province: $province, marital: $marital, registrationNumber: $registrationNumber, registrationType: $registrationType, companyType: $companyType,}';
 
   UserEntity toEntity() => UserEntity(
         uid: uid,
@@ -100,8 +112,11 @@ class User extends Equatable {
         country: country,
         postCode: postCode,
         city: city,
-        state: state,
+        province: province,
         marital: marital,
+        registrationNumber: registrationNumber,
+        registrationType: registrationType,
+        companyType: companyType,
       );
 
   static User fromEntity(final UserEntity entity) => User(
@@ -120,8 +135,11 @@ class User extends Equatable {
         country: entity.country,
         postCode: entity.postCode,
         city: entity.city,
-        state: entity.state,
+        province: entity.province,
         marital: entity.marital,
+        registrationNumber: entity.registrationNumber,
+        registrationType: entity.registrationType,
+        companyType: entity.companyType,
       );
 
   static User empty() => const User(
@@ -140,8 +158,11 @@ class User extends Equatable {
         country: '',
         postCode: '',
         city: '',
-        state: '',
+        province: '',
         marital: '',
+        registrationNumber: '',
+        registrationType: '',
+        companyType: '',
       );
 
   @override
@@ -161,7 +182,10 @@ class User extends Equatable {
         country,
         postCode,
         city,
-        state,
+        province,
         marital,
+        registrationNumber,
+        registrationType,
+        companyType,
       ];
 }

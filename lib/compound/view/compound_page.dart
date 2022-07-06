@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/current_user/bloc/current_user_bloc.dart';
-import '/history/cubit/history_cubit.dart';
-import '/transactions/bloc/transactions_bloc.dart';
-import '/transactions/transaction_category_constant.dart';
+import '/compound/cubit/compound_cubit.dart';
+import '/licenses/bloc/licenses_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:transactions_repository/transactions_repository.dart';
+import 'package:licenses_repository/licenses_repository.dart';
 
-class HistoryPage extends StatelessWidget {
-  const HistoryPage({final Key? key}) : super(key: key);
+class CompoundPage extends StatelessWidget {
+  const CompoundPage({final Key? key}) : super(key: key);
+
+  static Route route() => MaterialPageRoute<void>(
+        builder: (final _) => const CompoundPage(),
+      );
 
   @override
   Widget build(final BuildContext context) {
@@ -25,32 +28,47 @@ class HistoryPage extends StatelessWidget {
         lastDate: DateTime(2101),
       );
       if (picked != null && picked != selectedDate) {
-        context.read<HistoryCubit>().datePicked(picked);
+        context.read<CompoundCubit>().datePicked(picked);
       }
     }
 
-    return BlocBuilder<TransactionsBloc, TransactionsState>(
+    return BlocBuilder<LicensesBloc, LicensesState>(
       builder: (final context, final state) {
-        if (state is TransactionsLoaded) {
+        if (state is LicensesLoaded) {
           return BlocProvider(
-            create: (final context) => HistoryCubit(
-                transactions: state.transactions
-                    .where((element) => element.receiverUID == user.uid)
-                    .toList(),
-                uid: user.uid)
-              ..init(),
+            create: (final context) =>
+                CompoundCubit(licenses: state.licenses, uid: user.uid)..init(),
             child: Scaffold(
               backgroundColor: const Color(0xFFF4F4F4),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, top: 50, bottom: 25),
-                    child: Text(
-                      'Transactions History',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w900, fontSize: 22),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, top: 50, bottom: 25),
+                          child: Row(
+                            children: <Widget>[
+                              IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  }),
+                              const Text(
+                                'Pay Compound',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -80,7 +98,8 @@ class HistoryPage extends StatelessWidget {
                               child: ButtonTheme(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 5),
-                                child: BlocBuilder<HistoryCubit, HistoryState>(
+                                child:
+                                    BlocBuilder<CompoundCubit, CompoundState>(
                                   builder: (final context, final state) =>
                                       DropdownButton(
                                     hint: const Text('Category'),
@@ -100,7 +119,7 @@ class HistoryPage extends StatelessWidget {
                                       DropdownMenuItem(
                                         value: 2,
                                         child: Text(
-                                          "Application",
+                                          "Transfer",
                                           style: GoogleFonts.roboto(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w500),
@@ -109,7 +128,7 @@ class HistoryPage extends StatelessWidget {
                                       DropdownMenuItem(
                                           value: 3,
                                           child: Text(
-                                            "Renewal",
+                                            "Received",
                                             style: GoogleFonts.roboto(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500),
@@ -117,7 +136,7 @@ class HistoryPage extends StatelessWidget {
                                       DropdownMenuItem(
                                           value: 4,
                                           child: Text(
-                                            "Compound",
+                                            "Top up",
                                             style: GoogleFonts.roboto(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500),
@@ -135,7 +154,7 @@ class HistoryPage extends StatelessWidget {
                                     onChanged: (final int? value) {
                                       if (value != null) {
                                         context
-                                            .read<HistoryCubit>()
+                                            .read<CompoundCubit>()
                                             .searchChanged(value);
                                       }
 
@@ -152,21 +171,20 @@ class HistoryPage extends StatelessWidget {
                       ]),
                     ),
                   ),
-                  BlocBuilder<HistoryCubit, HistoryState>(
+                  BlocBuilder<CompoundCubit, CompoundState>(
                     buildWhen: (final previous, final current) =>
-                        previous.filteredTransactionsList !=
-                        current.filteredTransactionsList,
+                        previous.filteredLicensesList !=
+                        current.filteredLicensesList,
                     builder: (final context, final state) => Expanded(
                       child: ListView.builder(
-                          itemCount: state.filteredTransactionsList.isEmpty
-                              ? state.transactionsList.length
-                              : state.filteredTransactionsList.length,
+                          itemCount: state.filteredLicensesList.isEmpty
+                              ? state.licensesList.length
+                              : state.filteredLicensesList.length,
                           itemBuilder: (final BuildContext context,
                                   final int index) =>
-                              _historyWidget(
-                                  state.filteredTransactionsList.isEmpty
-                                      ? state.transactionsList[index]
-                                      : state.filteredTransactionsList[index])),
+                              _compoundWidget(state.filteredLicensesList.isEmpty
+                                  ? state.licensesList[index]
+                                  : state.filteredLicensesList[index])),
                     ),
                   ),
                 ],
@@ -179,11 +197,11 @@ class HistoryPage extends StatelessWidget {
     );
   }
 
-  Widget _historyWidget(final Transaction? transaction) =>
+  Widget _compoundWidget(final License? license) =>
       Builder(builder: (final context) {
         final user =
             context.select((final CurrentUserBloc bloc) => bloc.state.user);
-        if (transaction != null) {
+        if (license != null) {
           return SingleChildScrollView(
             child: Container(
               height: 80,
@@ -196,15 +214,7 @@ class HistoryPage extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 12),
-                        child: Image.asset(
-                          transaction.category == kapplication
-                              ? 'assets/ico_pay_phone.png'
-                              : transaction.category == krenewal
-                                  ? 'assets/ico_receive_money.png'
-                                  : 'assets/ico_send_money.png',
-                          height: 30,
-                          width: 30,
-                        ),
+                        child: SizedBox(),
                       ),
                       Expanded(
                         child: Padding(
@@ -214,7 +224,7 @@ class HistoryPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  transaction.category,
+                                  license.id.substring(0, 6),
                                   style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
@@ -230,17 +240,7 @@ class HistoryPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text(
-                                transaction.receiverUID == user.uid
-                                    ? ' + RM ${transaction.amount}'
-                                    : ' - RM ${transaction.amount}',
-                                style: GoogleFonts.roboto(
-                                    color: transaction.receiverUID == user.uid
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                              ),
+                              Text("pe"),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -250,7 +250,7 @@ class HistoryPage extends StatelessWidget {
                                 children: <Widget>[
                                   Expanded(
                                     child: Text(
-                                      " ${transaction.timestamp.day}/${transaction.timestamp.month}/${transaction.timestamp.year} ${transaction.timestamp.hour}:${transaction.timestamp.minute}",
+                                      " ${license.timestamp.day}/${license.timestamp.month}/${license.timestamp.year} ${license.timestamp.hour}:${license.timestamp.minute}",
                                       textAlign: TextAlign.right,
                                       style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.w500,

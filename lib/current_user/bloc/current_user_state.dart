@@ -21,8 +21,11 @@ class CurrentUserState extends Equatable {
       country: "",
       postCode: "",
       city: "",
-      state: "",
+      province: "",
       marital: "",
+      registrationNumber: "",
+      registrationType: "",
+      companyType: "",
     ),
   });
 

@@ -21,8 +21,11 @@ class UserEntity extends Equatable {
   final String country;
   final String postCode;
   final String city;
-  final String state;
+  final String province;
   final String marital;
+  final String registrationNumber;
+  final String registrationType;
+  final String companyType;
 
   const UserEntity({
     required this.uid,
@@ -40,8 +43,11 @@ class UserEntity extends Equatable {
     required this.country,
     required this.postCode,
     required this.city,
-    required this.state,
+    required this.province,
     required this.marital,
+    required this.registrationNumber,
+    required this.registrationType,
+    required this.companyType,
   });
 
   Map<String, Object?> toJson() => {
@@ -60,8 +66,11 @@ class UserEntity extends Equatable {
         'country': country,
         'postCode': postCode,
         'city': city,
-        'state': state,
+        'province': province,
         'marital': marital,
+        'registrationNumber': registrationNumber,
+        'registrationType': registrationType,
+        'companyType': companyType,
       };
 
   @override
@@ -81,8 +90,11 @@ class UserEntity extends Equatable {
         country,
         postCode,
         city,
-        state,
+        province,
         marital,
+        registrationNumber,
+        registrationType,
+        companyType,
       ];
 
   @override
@@ -105,8 +117,11 @@ class UserEntity extends Equatable {
         country: json['country'] as String,
         postCode: json['postCode'] as String,
         city: json['city'] as String,
-        state: json['state'] as String,
+        province: json['province'] as String,
         marital: json['marital'] as String,
+        registrationNumber: json['registrationNumber'] as String,
+        registrationType: json['registrationType'] as String,
+        companyType: json['companyType'] as String,
       );
 
   static UserEntity fromSnapshot(final DocumentSnapshot snap) {
@@ -128,8 +143,11 @@ class UserEntity extends Equatable {
       country: data['country'],
       postCode: data['postCode'],
       city: data['city'],
-      state: data['state'],
+      province: data['province'],
       marital: data['marital'],
+      registrationNumber: data['registrationNumber'],
+      registrationType: data['registrationType'],
+      companyType: data['companyType'],
     );
   }
 
@@ -149,7 +167,10 @@ class UserEntity extends Equatable {
         'country': country,
         'postCode': postCode,
         'city': city,
-        'state': state,
+        'province': province,
         'marital': marital,
+        'registrationNumber': registrationNumber,
+        'registrationType': registrationType,
+        'companyType': companyType,
       };
 }

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:eispkp/application/view/view.dart';
+import 'package:eispkp/complaint/view/complaint_page.dart';
+import 'package:eispkp/compound/view/compound_page.dart';
+import 'package:eispkp/faq/view/faq_page.dart';
 import 'package:eispkp/licenses/bloc/licenses_bloc.dart';
+import 'package:eispkp/renewal/view/view.dart';
+import 'package:eispkp/status/view/status_page.dart';
 import '/app/app.dart';
 import '/common/widgets/avatar.dart';
 import '/current_user/bloc/current_user_bloc.dart';
@@ -38,13 +44,6 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  Text(
-                    "Operations",
-                    style: GoogleFonts.roboto(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -74,7 +73,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Text(
-            user.displayName,
+            "${user.fname} ${user.lname}",
             style: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -104,15 +103,12 @@ class HomePage extends StatelessWidget {
                   height: 90,
                   minWidth: 90,
                   child: RaisedButton(
+                    elevation: 0,
                     onPressed: () {
-                      // Navigator.of(context).push(ApplicationPage.route());
+                      Navigator.of(context).push(ApplicationPage.route());
                     },
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const FaIcon(FontAwesomeIcons.envelopeOpenText),
+                    color: Color.fromRGBO(250, 250, 252, 1),
+                    child: Image.asset('assets/icon_envelope.png'),
                   ),
                 ),
                 Container(
@@ -137,15 +133,12 @@ class HomePage extends StatelessWidget {
                   height: 90,
                   minWidth: 90,
                   child: RaisedButton(
+                    elevation: 0,
                     onPressed: () {
-                      // Navigator.of(context).push(RenewalPage.route());
+                      Navigator.of(context).push(RenewalPage.route());
                     },
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const FaIcon(FontAwesomeIcons.idCard),
+                    color: const Color.fromRGBO(250, 250, 252, 1),
+                    child: Image.asset('assets/icon_license.png'),
                   ),
                 ),
                 Container(
@@ -156,7 +149,7 @@ class HomePage extends StatelessWidget {
                       textStyle: Theme.of(context).textTheme.headline4,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xff76797e),
+                      // color: const Color(0xff76797e),
                     ),
                   ),
                 )
@@ -170,15 +163,12 @@ class HomePage extends StatelessWidget {
                   height: 90,
                   minWidth: 90,
                   child: RaisedButton(
+                    elevation: 0,
                     onPressed: () {
-                      // Navigator.of(context).push(StatusPage.route());
+                      Navigator.of(context).push(StatusPage.route());
                     },
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const FaIcon(FontAwesomeIcons.fileCircleCheck),
+                    color: Color.fromRGBO(250, 250, 252, 1),
+                    child: Image.asset('assets/icon_approve.png'),
                   ),
                 ),
                 Container(
@@ -213,15 +203,12 @@ class HomePage extends StatelessWidget {
                         height: 90,
                         minWidth: 90,
                         child: RaisedButton(
+                          elevation: 0,
                           onPressed: () {
-                            // Navigator.of(context).push(CompoundPage.route());
+                            Navigator.of(context).push(CompoundPage.route());
                           },
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          color: Colors.white,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: const FaIcon(FontAwesomeIcons.gavel),
+                          color: Color.fromRGBO(250, 250, 252, 1),
+                          child: Image.asset('assets/icon_hammer.png'),
                         ),
                       );
                     }
@@ -250,21 +237,48 @@ class HomePage extends StatelessWidget {
                   height: 90,
                   minWidth: 90,
                   child: RaisedButton(
+                    elevation: 0,
                     onPressed: () {
-                      // Navigator.of(context).push(ComplaintPage.route());
+                      Navigator.of(context).push(ComplaintPage.route());
                     },
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: const FaIcon(FontAwesomeIcons.commentDots),
+                    color: Color.fromRGBO(250, 250, 252, 1),
+                    child: Image.asset('assets/icon_comment.png'),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   child: Text(
                     "Complaint",
+                    style: GoogleFonts.roboto(
+                      textStyle: Theme.of(context).textTheme.headline4,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff76797e),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                ButtonTheme(
+                  height: 90,
+                  minWidth: 90,
+                  child: RaisedButton(
+                    elevation: 0,
+                    onPressed: () {
+                      Navigator.of(context).push(FaqPage.route());
+                    },
+                    color: Color.fromRGBO(250, 250, 252, 1),
+                    child: Image.asset('assets/icon_qna.png'),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    "FAQ",
                     style: GoogleFonts.roboto(
                       textStyle: Theme.of(context).textTheme.headline4,
                       fontSize: 16,
@@ -341,7 +355,7 @@ class HomePage extends StatelessWidget {
                       children: <Widget>[
                         const Icon(
                           Icons.add,
-                          color: Colors.white,
+                          color: Color.fromRGBO(250, 250, 252, 1),
                           size: 20,
                         ),
                         const SizedBox(width: 5),

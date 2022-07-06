@@ -38,16 +38,17 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
             country: "",
             postCode: "",
             city: "",
-            state: "",
+            province: "",
             marital: "",
+            registrationNumber: "",
+            registrationType: "",
+            companyType: "",
           ),
         );
         add(CurrentUserChanged(CurrentUserStatus.incompleted, currentUser));
       }
 
-      if (currentUser.displayName.isEmpty ||
-          currentUser.mobile.isEmpty ||
-          currentUser.email.isEmpty) {
+      if (currentUser.fname.isEmpty) {
         add(CurrentUserChanged(CurrentUserStatus.incompleted, currentUser));
       } else {
         add(CurrentUserChanged(CurrentUserStatus.completed, currentUser));
