@@ -27,8 +27,7 @@ class HistoryCubit extends Cubit<HistoryState> {
     if (value == 2) {
       final List<Transaction?> filtered =
           state.transactionsList.map((final transaction) {
-        if (transaction.category == kapplication &&
-            transaction.receiverUID == _uid) {
+        if (transaction.category == kapplication) {
           return transaction;
         }
         return null;
@@ -40,8 +39,7 @@ class HistoryCubit extends Cubit<HistoryState> {
     if (value == 3) {
       final List<Transaction?> filtered =
           state.transactionsList.map((final transaction) {
-        if (transaction.category == krenewal &&
-            transaction.receiverUID == _uid) {
+        if (transaction.category == krenewal) {
           return transaction;
         }
         return null;

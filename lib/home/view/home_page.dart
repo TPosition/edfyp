@@ -1,3 +1,4 @@
+import 'package:eispkp/license_admin/view/license_admin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,7 +46,7 @@ class HomePage extends StatelessWidget {
                     height: 100,
                   ),
                   _operationsWidget(context),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   _operationsWidget2(context),
@@ -101,9 +102,9 @@ class HomePage extends StatelessWidget {
                   child: RaisedButton(
                     elevation: 0,
                     onPressed: () {
-                      Navigator.of(context).push(ApplicationPage.route());
+                      Navigator.of(context).push(LicenseAdminPage.route());
                     },
-                    color: Color.fromRGBO(250, 250, 252, 1),
+                    color: const Color.fromRGBO(250, 250, 252, 1),
                     child: Image.asset(
                       'assets/icon_license.png',
                       height: 60,
@@ -136,7 +137,7 @@ class HomePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(StatusPage.route());
                     },
-                    color: Color.fromRGBO(250, 250, 252, 1),
+                    color: const Color.fromRGBO(250, 250, 252, 1),
                     child: Image.asset(
                       'assets/icon_user.png',
                       height: 80,
@@ -179,7 +180,7 @@ class HomePage extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(CompoundPage.route());
                           },
-                          color: Color.fromRGBO(250, 250, 252, 1),
+                          color: const Color.fromRGBO(250, 250, 252, 1),
                           child: Image.asset(
                             'assets/icon_hammer.png',
                             height: 80,
@@ -216,7 +217,7 @@ class HomePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(ComplaintPage.route());
                     },
-                    color: Color.fromRGBO(250, 250, 252, 1),
+                    color: const Color.fromRGBO(250, 250, 252, 1),
                     child: Image.asset(
                       'assets/icon_comment.png',
                       height: 80,

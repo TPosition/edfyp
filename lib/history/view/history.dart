@@ -34,10 +34,7 @@ class HistoryPage extends StatelessWidget {
         if (state is TransactionsLoaded) {
           return BlocProvider(
             create: (final context) => HistoryCubit(
-                transactions: state.transactions
-                    .where((element) => element.receiverUID == user.uid)
-                    .toList(),
-                uid: user.uid)
+                transactions: state.transactions.toList(), uid: user.uid)
               ..init(),
             child: Scaffold(
               backgroundColor: const Color(0xFFF4F4F4),
@@ -232,12 +229,12 @@ class HistoryPage extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 transaction.receiverUID == user.uid
-                                    ? ' + RM ${transaction.amount}'
-                                    : ' - RM ${transaction.amount}',
+                                    ? '  RM ${transaction.amount}'
+                                    : '  RM ${transaction.amount}',
                                 style: GoogleFonts.roboto(
                                     color: transaction.receiverUID == user.uid
                                         ? Colors.green
-                                        : Colors.red,
+                                        : Colors.green,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14),
                               ),
