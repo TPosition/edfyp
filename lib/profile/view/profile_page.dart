@@ -29,7 +29,6 @@ class ProfilePage extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               const _AppBar(),
-                              _ProfileAvatar(user: user)
                             ],
                           ),
                         ),
@@ -59,31 +58,6 @@ class ProfilePage extends StatelessWidget {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                const _InfoMobile(),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _InfoUserMobile(user: user),
-                                const _InfoAddress(),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _InfoUserAddress(user: user),
-                                const _InfoPassport(),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _InfoUserPassport(user: user),
-                                const _InfoNationality(),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _InfoUserNationality(user: user),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const _InfoMarital(),
-                                _InfoUserMarital(user: user),
                               ],
                             ),
                           ),

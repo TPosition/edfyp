@@ -47,12 +47,7 @@ class CurrentUserBloc extends Bloc<CurrentUserEvent, CurrentUserState> {
         );
         add(CurrentUserChanged(CurrentUserStatus.incompleted, currentUser));
       }
-
-      if (currentUser.fname.isEmpty) {
-        add(CurrentUserChanged(CurrentUserStatus.incompleted, currentUser));
-      } else {
-        add(CurrentUserChanged(CurrentUserStatus.completed, currentUser));
-      }
+      add(CurrentUserChanged(CurrentUserStatus.completed, currentUser));
     });
   }
 

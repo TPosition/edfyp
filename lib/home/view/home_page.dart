@@ -42,13 +42,10 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 35),
                   _appBar(context, user),
                   const SizedBox(
-                    height: 40,
-                  ),
-                  const SizedBox(
-                    height: 30,
+                    height: 100,
                   ),
                   _operationsWidget(context),
-                  const SizedBox(
+                  SizedBox(
                     height: 30,
                   ),
                   _operationsWidget2(context),
@@ -63,10 +60,9 @@ class HomePage extends StatelessWidget {
 
   Widget _appBar(final BuildContext context, final User user) => Row(
         children: <Widget>[
-          Avatar(photo: user.photoURL),
           const SizedBox(width: 15),
           Text(
-            "Hello, ",
+            "Admin Dashboard",
             style: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -108,13 +104,16 @@ class HomePage extends StatelessWidget {
                       Navigator.of(context).push(ApplicationPage.route());
                     },
                     color: Color.fromRGBO(250, 250, 252, 1),
-                    child: Image.asset('assets/icon_envelope.png'),
+                    child: Image.asset(
+                      'assets/icon_license.png',
+                      height: 60,
+                    ),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   child: Text(
-                    "Application",
+                    "Licenses",
                     style: GoogleFonts.roboto(
                       textStyle: Theme.of(context).textTheme.headline4,
                       fontSize: 16,
@@ -135,46 +134,19 @@ class HomePage extends StatelessWidget {
                   child: RaisedButton(
                     elevation: 0,
                     onPressed: () {
-                      Navigator.of(context).push(RenewalPage.route());
-                    },
-                    color: const Color.fromRGBO(250, 250, 252, 1),
-                    child: Image.asset('assets/icon_license.png'),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    "Renewal",
-                    style: GoogleFonts.roboto(
-                      textStyle: Theme.of(context).textTheme.headline4,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      // color: const Color(0xff76797e),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                ButtonTheme(
-                  height: 90,
-                  minWidth: 90,
-                  child: RaisedButton(
-                    elevation: 0,
-                    onPressed: () {
                       Navigator.of(context).push(StatusPage.route());
                     },
                     color: Color.fromRGBO(250, 250, 252, 1),
-                    child: Image.asset('assets/icon_approve.png'),
+                    child: Image.asset(
+                      'assets/icon_user.png',
+                      height: 80,
+                    ),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   child: Text(
-                    "Status",
+                    "Users",
                     style: GoogleFonts.roboto(
                       textStyle: Theme.of(context).textTheme.headline4,
                       fontSize: 16,
@@ -208,7 +180,10 @@ class HomePage extends StatelessWidget {
                             Navigator.of(context).push(CompoundPage.route());
                           },
                           color: Color.fromRGBO(250, 250, 252, 1),
-                          child: Image.asset('assets/icon_hammer.png'),
+                          child: Image.asset(
+                            'assets/icon_hammer.png',
+                            height: 80,
+                          ),
                         ),
                       );
                     }
@@ -242,43 +217,16 @@ class HomePage extends StatelessWidget {
                       Navigator.of(context).push(ComplaintPage.route());
                     },
                     color: Color.fromRGBO(250, 250, 252, 1),
-                    child: Image.asset('assets/icon_comment.png'),
+                    child: Image.asset(
+                      'assets/icon_comment.png',
+                      height: 80,
+                    ),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   child: Text(
                     "Complaint",
-                    style: GoogleFonts.roboto(
-                      textStyle: Theme.of(context).textTheme.headline4,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xff76797e),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                ButtonTheme(
-                  height: 90,
-                  minWidth: 90,
-                  child: RaisedButton(
-                    elevation: 0,
-                    onPressed: () {
-                      Navigator.of(context).push(FaqPage.route());
-                    },
-                    color: Color.fromRGBO(250, 250, 252, 1),
-                    child: Image.asset('assets/icon_qna.png'),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    "FAQ",
                     style: GoogleFonts.roboto(
                       textStyle: Theme.of(context).textTheme.headline4,
                       fontSize: 16,
