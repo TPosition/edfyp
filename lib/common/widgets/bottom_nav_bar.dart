@@ -51,12 +51,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   : Image.asset('assets/ico_history.png'),
               label: 'History',
             ),
-            BottomNavigationBarItem(
-              icon: _selectedIndex == 2
-                  ? Image.asset('assets/ico_profile_selected.png')
-                  : Image.asset('assets/ico_profile.png'),
-              label: 'Profile',
-            ),
           ],
         ),
       );
