@@ -2,24 +2,23 @@ part of 'complaint_cubit.dart';
 
 class ComplaintState extends Equatable {
   const ComplaintState({
-    this.title = '',
-    this.comment = '',
+    final this.complaintsList = const [],
+    final this.filteredComplaintsList = const [],
   });
 
-  final String title;
-  final String comment;
+  final List<Complaint> complaintsList;
+  final List<Complaint?> filteredComplaintsList;
 
   @override
-  List<Object> get props => [title, comment];
+  List<Object> get props => [complaintsList, filteredComplaintsList];
 
   ComplaintState copyWith({
-    String? title,
-    String? comment,
-    FormzStatus? status,
-  }) {
-    return ComplaintState(
-      title: title ?? this.title,
-      comment: comment ?? this.comment,
-    );
-  }
+    final List<Complaint>? complaintsList,
+    final List<Complaint?>? filteredComplaintsList,
+  }) =>
+      ComplaintState(
+        complaintsList: complaintsList ?? this.complaintsList,
+        filteredComplaintsList:
+            filteredComplaintsList ?? this.filteredComplaintsList,
+      );
 }
