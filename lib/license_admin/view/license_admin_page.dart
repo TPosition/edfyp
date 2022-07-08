@@ -19,6 +19,7 @@ class LicenseAdminPage extends StatelessWidget {
     final user =
         context.select((final CurrentUserBloc bloc) => bloc.state.user);
     final DateTime selectedDate = DateTime.now();
+    String _editText = '';
 
     Future _selectDate(final BuildContext context) async {
       final DateTime? picked = await showDatePicker(
@@ -104,51 +105,23 @@ class LicenseAdminPage extends StatelessWidget {
                                         elevation: 16,
                                         value: _dropdownValue,
                                         items: [
-                                          DropdownMenuItem(
-                                            value: 1,
-                                            child: Text(
-                                              "All",
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
-                                          DropdownMenuItem(
-                                            value: 2,
-                                            child: Text(
-                                              "Application",
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
-                                          DropdownMenuItem(
-                                              value: 3,
-                                              child: Text(
-                                                "Renewal",
-                                                style: GoogleFonts.roboto(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )),
-                                          DropdownMenuItem(
-                                              value: 4,
-                                              child: Text(
-                                                "Compound",
-                                                style: GoogleFonts.roboto(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )),
-                                          DropdownMenuItem(
-                                            value: 5,
-                                            child: Text(
-                                              "Date",
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
+                                          licencesDropdownMenuItem(1, 'All'),
+                                          licencesDropdownMenuItem(
+                                              2, 'Pending'),
+                                          licencesDropdownMenuItem(
+                                              3, 'Approved'),
+                                          licencesDropdownMenuItem(4, 'Denied'),
+                                          licencesDropdownMenuItem(5, 'Status'),
+                                          licencesDropdownMenuItem(
+                                              6, 'Created Date'),
+                                          licencesDropdownMenuItem(
+                                              7, 'License ID'),
+                                          licencesDropdownMenuItem(
+                                              8, 'Expiry Date'),
+                                          licencesDropdownMenuItem(9, 'Type'),
+                                          licencesDropdownMenuItem(10, 'Class'),
+                                          licencesDropdownMenuItem(
+                                              11, 'Department'),
                                         ],
                                         onChanged: (final int? value) {
                                           if (value != null) {
@@ -157,9 +130,9 @@ class LicenseAdminPage extends StatelessWidget {
                                                 .searchChanged(value);
                                           }
 
-                                          if (value == 5) {
-                                            _selectDate(context);
-                                          }
+                                          // if (value == 6) {
+                                          //   _selectDate(context);
+                                          // }
                                         },
                                       ),
                                     ),
@@ -170,6 +143,7 @@ class LicenseAdminPage extends StatelessWidget {
                           ]),
                         ),
                       ),
+                      _LicenseSearchInput(),
                     ],
                   ),
                   BlocBuilder<LicenseAdminCubit, LicenseAdminState>(
@@ -195,6 +169,16 @@ class LicenseAdminPage extends StatelessWidget {
         }
         return const SizedBox();
       },
+    );
+  }
+
+  DropdownMenuItem<int> licencesDropdownMenuItem(int value, String text) {
+    return DropdownMenuItem(
+      value: value,
+      child: Text(
+        text,
+        style: GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.w500),
+      ),
     );
   }
 
@@ -375,4 +359,40 @@ class _statusDropdownState extends State<_statusDropdown> {
               ),
             ));
   }
+}
+
+class _LicenseSearchInput extends StatelessWidget {
+  @override
+  Widget build(final BuildContext context) =>
+      BlocBuilder<LicenseAdminCubit, LicenseAdminState>(
+        buildWhen: (final previous, final current) =>
+            previous.licenseSearch != current.licenseSearch,
+        builder: (final context, final state) => Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              TextField(
+                key: const Key('licenseAdminForm_licenseSearchInput_textField'),
+                onChanged: (final licenseSearch) => context
+                    .read<LicenseAdminCubit>()
+                    .licenseSearchChanged(licenseSearch),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  helperText: 'search by license ID',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 }

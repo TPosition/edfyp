@@ -19,19 +19,61 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
     emit(state.copyWith(licensesList: _licenses));
   }
 
-  void statusDropdownChanged(final int value) {
-    emit(
-      state.copyWith(
-        statusDropdown: value,
-      ),
-    );
+  void licenseSearchChanged(final String value) {
+    final List<License?> filtered = state.licensesList.map((final license) {
+      if (license.id.contains(value)) {
+        return license;
+      }
+      return null;
+    }).toList();
+
+    emit(state.copyWith(filteredLicensesList: filtered));
   }
 
   void searchChanged(final int value) {
-    // sort by status
     if (value == 1) {
+      emit(state.copyWith(filteredLicensesList: []));
+    }
+//show only pending
+    if (value == 2) {
+      final List<License?> filtered = state.licensesList.map((final license) {
+        if (license.status == 'pending') {
+          return license;
+        }
+        return null;
+      }).toList();
+
+      emit(state.copyWith(filteredLicensesList: filtered));
+    }
+//show only approve
+    if (value == 3) {
+      final List<License?> filtered = state.licensesList.map((final license) {
+        if (license.status == 'approved') {
+          print('license.status');
+          print(license.status);
+          return license;
+        }
+        return null;
+      }).toList();
+
+      emit(state.copyWith(filteredLicensesList: filtered));
+    }
+//show only denied
+    if (value == 4) {
+      final List<License?> filtered = state.licensesList.map((final license) {
+        if (license.status == 'denied') {
+          return license;
+        }
+        return null;
+      }).toList();
+
+      emit(state.copyWith(filteredLicensesList: filtered));
+    }
+
+    // sort by status
+    if (value == 5) {
       List<License?> filtered = state.licensesList.map((final license) {
-        if (license.uid == _uid) {
+        if (true) {
           return license;
         }
         return null;
@@ -48,7 +90,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
     }
 
     // sort by timestamp
-    if (value == 2) {
+    if (value == 6) {
       List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
@@ -65,7 +107,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
       }
     }
     // sort by id
-    if (value == 3) {
+    if (value == 7) {
       final List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
@@ -81,7 +123,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
       }
     }
     // sort by expiry date
-    if (value == 4) {
+    if (value == 8) {
       final List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
@@ -97,7 +139,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
       }
     }
     // sort by type
-    if (value == 5) {
+    if (value == 9) {
       final List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
@@ -113,7 +155,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
       }
     }
     // sort by lcass
-    if (value == 6) {
+    if (value == 10) {
       final List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
@@ -129,7 +171,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
       }
     }
     // sort by department
-    if (value == 7) {
+    if (value == 11) {
       final List<License?> filtered = state.licensesList.map((final license) {
         if (license.uid == _uid) {
           return license;
