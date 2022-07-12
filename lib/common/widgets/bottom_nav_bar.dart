@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/history/view/history.dart';
 import '/home/home.dart';
-import '/profile/view/profile_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -19,7 +18,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _widgetOptions = [
     const HomePage(),
     const HistoryPage(),
-    const ProfilePage()
   ];
 
   @override

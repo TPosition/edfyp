@@ -21,7 +21,7 @@ class LicenseAdminCubit extends Cubit<LicenseAdminState> {
 
   void licenseSearchChanged(final String value) {
     final List<License?> filtered = state.licensesList.map((final license) {
-      if (license.id.contains(value)) {
+      if (license.id.toLowerCase().contains(value.toLowerCase())) {
         return license;
       }
       return null;

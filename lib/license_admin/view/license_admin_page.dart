@@ -1,4 +1,5 @@
 import 'package:eispkp/license_admin/cubit/license_admin_cubit.dart';
+import 'package:eispkp/user_detail/view/user_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/current_user/bloc/current_user_bloc.dart';
@@ -184,12 +185,10 @@ class LicenseAdminPage extends StatelessWidget {
 
   Widget _statusWidget(final License? license) =>
       Builder(builder: (final context) {
-        final user =
-            context.select((final CurrentUserBloc bloc) => bloc.state.user);
         if (license != null) {
           return SingleChildScrollView(
             child: Container(
-              height: 130,
+              height: 136,
               margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
               child: Card(
                 color: Colors.white,
@@ -239,6 +238,22 @@ class LicenseAdminPage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
                                   textAlign: TextAlign.left,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      textStyle: const TextStyle(
+                                    fontSize: 12,
+                                  )),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProfilePage(
+                                            uid: license.uid,
+                                          ),
+                                        ));
+                                  },
+                                  child: const Text('detail'),
                                 ),
                               ]),
                         ),

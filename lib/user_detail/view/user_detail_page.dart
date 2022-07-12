@@ -7,28 +7,93 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:users_repository/users_repository.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({final Key? key}) : super(key: key);
+  const ProfilePage({final Key? key, required final this.uid})
+      : super(key: key);
+
+  final String uid;
 
   @override
   Widget build(final BuildContext context) {
-    final user =
-        context.select((final CurrentUserBloc bloc) => bloc.state.user);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         body: Container(
           color: Colors.white,
           child: ListView(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 20),
+                child: Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ),
               BlocBuilder<UsersBloc, UsersState>(
                 builder: (final context, final state) {
                   if (state is UsersLoaded) {
+                    final user = state.users[state.users
+                        .indexWhere((element) => element.uid == uid)];
                     return Column(
                       children: <Widget>[
+                        if (user.registrationNumber.isNotEmpty)
+                          Container(
+                            color: Colors.white,
+                            child: Column(
+                              children: <Widget>[
+                                const _AppBarCompany(),
+                                Container(
+                                  color: const Color(0xffFFFFFF),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 25),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const _InfoRegistrationNumber(),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        _InfoUserRegistrationNumber(user: user),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        const _InfoRegistrationType(),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        _InfoUserRegistrationType(user: user),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        const _InfoCompanyType(),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        _InfoUserCompanyType(user: user),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         Container(
                           color: Colors.white,
                           child: Column(
                             children: <Widget>[
                               const _AppBar(),
+                              _ProfileAvatar(user: user)
                             ],
                           ),
                         ),
@@ -58,6 +123,31 @@ class ProfilePage extends StatelessWidget {
                                 const SizedBox(
                                   height: 20,
                                 ),
+                                const _InfoMobile(),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                _InfoUserMobile(user: user),
+                                const _InfoAddress(),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                _InfoUserAddress(user: user),
+                                const _InfoPassport(),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                _InfoUserPassport(user: user),
+                                const _InfoNationality(),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                _InfoUserNationality(user: user),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const _InfoMarital(),
+                                _InfoUserMarital(user: user),
                               ],
                             ),
                           ),
@@ -500,4 +590,179 @@ class _AppBar extends StatelessWidget {
           )
         ],
       ));
+}
+
+class _AppBarCompany extends StatelessWidget {
+  const _AppBarCompany({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+      padding: const EdgeInsets.only(left: 20, top: 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Text(
+              'Company Information',
+              style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.black),
+            ),
+          )
+        ],
+      ));
+}
+
+class _InfoUserRegistrationNumber extends StatelessWidget {
+  const _InfoUserRegistrationNumber({
+    required final this.user,
+    final Key? key,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 2),
+      child: Row(
+        children: <Widget>[
+          Flexible(
+            child: Text(
+              user.registrationNumber,
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ));
+}
+
+class _InfoRegistrationNumber extends StatelessWidget {
+  const _InfoRegistrationNumber({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+        child: Row(
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'RegistrationNumber',
+                  style: GoogleFonts.roboto(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+}
+
+class _InfoUserRegistrationType extends StatelessWidget {
+  const _InfoUserRegistrationType({
+    required final this.user,
+    final Key? key,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 2),
+      child: Row(
+        children: <Widget>[
+          Flexible(
+            child: Text(
+              user.registrationType,
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ));
+}
+
+class _InfoRegistrationType extends StatelessWidget {
+  const _InfoRegistrationType({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+        child: Row(
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'RegistrationType',
+                  style: GoogleFonts.roboto(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+}
+
+class _InfoUserCompanyType extends StatelessWidget {
+  const _InfoUserCompanyType({
+    required final this.user,
+    final Key? key,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, top: 2),
+      child: Row(
+        children: <Widget>[
+          Flexible(
+            child: Text(
+              user.companyType,
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ));
+}
+
+class _InfoCompanyType extends StatelessWidget {
+  const _InfoCompanyType({
+    final Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+        child: Row(
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'CompanyType',
+                  style: GoogleFonts.roboto(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
