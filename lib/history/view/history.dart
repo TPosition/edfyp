@@ -149,6 +149,7 @@ class HistoryPage extends StatelessWidget {
                       ]),
                     ),
                   ),
+                  _UIDSearchInput(),
                   BlocBuilder<HistoryCubit, HistoryState>(
                     buildWhen: (final previous, final current) =>
                         previous.filteredTransactionsList !=
@@ -197,7 +198,7 @@ class HistoryPage extends StatelessWidget {
                           transaction.category == kapplication
                               ? 'assets/ico_pay_phone.png'
                               : transaction.category == krenewal
-                                  ? 'assets/ico_receive_money.png'
+                                  ? 'assets/ico_send_money.png'
                                   : 'assets/ico_send_money.png',
                           height: 30,
                           width: 30,
@@ -210,6 +211,13 @@ class HistoryPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
+                                Text(
+                                  transaction.receiverUID.substring(0, 5),
+                                  style: GoogleFonts.roboto(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                  textAlign: TextAlign.left,
+                                ),
                                 Text(
                                   transaction.category,
                                   style: GoogleFonts.roboto(
@@ -270,4 +278,40 @@ class HistoryPage extends StatelessWidget {
         }
         return Container();
       });
+}
+
+class _UIDSearchInput extends StatelessWidget {
+  @override
+  Widget build(final BuildContext context) =>
+      BlocBuilder<HistoryCubit, HistoryState>(
+        buildWhen: (final previous, final current) =>
+            previous.licenseSearch != current.licenseSearch,
+        builder: (final context, final state) => Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              TextField(
+                key: const Key('historyForm_licenseSearchInput_textField'),
+                onChanged: (final licenseSearch) => context
+                    .read<HistoryCubit>()
+                    .licenseSearchChanged(licenseSearch),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  helperText: 'search by user ID',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
 }

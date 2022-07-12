@@ -20,6 +20,18 @@ class HistoryCubit extends Cubit<HistoryState> {
     emit(state.copyWith(transactionsList: _transactions));
   }
 
+  void licenseSearchChanged(final String value) {
+    final List<Transaction?> filtered =
+        state.transactionsList.map((final transaction) {
+      if (transaction.receiverUID.toLowerCase().contains(value.toLowerCase())) {
+        return transaction;
+      }
+      return null;
+    }).toList();
+
+    emit(state.copyWith(filteredTransactionsList: filtered));
+  }
+
   void searchChanged(final int value) {
     if (value == 1) {
       emit(state.copyWith(filteredTransactionsList: []));

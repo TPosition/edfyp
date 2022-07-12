@@ -6,8 +6,8 @@ import '/users/bloc/users_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:users_repository/users_repository.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({final Key? key, required final this.uid})
+class UserDetailPage extends StatelessWidget {
+  const UserDetailPage({final Key? key, required final this.uid})
       : super(key: key);
 
   final String uid;
