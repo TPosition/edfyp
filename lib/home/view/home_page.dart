@@ -1,5 +1,6 @@
 import 'package:eispkp/complaint/view/complaint.dart';
 import 'package:eispkp/license_admin/view/license_admin_page.dart';
+import 'package:eispkp/users_admin/view/users_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -135,7 +136,7 @@ class HomePage extends StatelessWidget {
                   child: RaisedButton(
                     elevation: 0,
                     onPressed: () {
-                      Navigator.of(context).push(StatusPage.route());
+                      Navigator.of(context).push(UsersAdminPage.route());
                     },
                     color: const Color.fromRGBO(250, 250, 252, 1),
                     child: Image.asset(
