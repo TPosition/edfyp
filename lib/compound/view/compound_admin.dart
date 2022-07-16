@@ -1,36 +1,33 @@
+import 'package:eispkp/add_compound/view/add_compound_page.dart';
+import 'package:eispkp/compound/cubit/compound_cubit.dart';
 import 'package:eispkp/user_detail/view/user_detail_page.dart';
 import 'package:eispkp/users/bloc/users_bloc.dart';
-import 'package:eispkp/users_admin/cubit/users_admin_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '/current_user/bloc/current_user_bloc.dart';
 import '/users/bloc/users_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:users_repository/users_repository.dart';
 
-class UsersAdminPage extends StatelessWidget {
-  const UsersAdminPage({final Key? key}) : super(key: key);
+class CompoundPage extends StatelessWidget {
+  const CompoundPage({final Key? key}) : super(key: key);
 
   static Route route() => MaterialPageRoute<void>(
-        builder: (final _) => const UsersAdminPage(),
+        builder: (final _) => const CompoundPage(),
       );
 
   static Page page() => const MaterialPage<void>(
-        child: UsersAdminPage(),
+        child: CompoundPage(),
       );
   @override
   Widget build(final BuildContext context) {
     const int _dropdownValue = 1;
-    final user =
-        context.select((final CurrentUserBloc bloc) => bloc.state.user);
 
     return BlocBuilder<UsersBloc, UsersState>(
       builder: (final context, final state) {
         if (state is UsersLoaded) {
           return BlocProvider(
             create: (final context) =>
-                UserAdminCubit(users: state.users.toList(), uid: user.uid)
-                  ..init(),
+                CompoundCubit(users: state.users.toList())..init(),
             child: Scaffold(
               backgroundColor: const Color(0xFFF4F4F4),
               body: Column(
@@ -47,7 +44,7 @@ class UsersAdminPage extends StatelessWidget {
                               Navigator.of(context).pop();
                             }),
                         const Text(
-                          'Users',
+                          'Compound',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -58,7 +55,7 @@ class UsersAdminPage extends StatelessWidget {
                     ),
                   ),
                   _UIDSearchInput(),
-                  BlocBuilder<UserAdminCubit, UserAdminState>(
+                  BlocBuilder<CompoundCubit, CompoundState>(
                     buildWhen: (final previous, final current) =>
                         previous.filteredUsersList != current.filteredUsersList,
                     builder: (final context, final state) => Expanded(
@@ -68,7 +65,7 @@ class UsersAdminPage extends StatelessWidget {
                               : state.filteredUsersList.length,
                           itemBuilder: (final BuildContext context,
                                   final int index) =>
-                              _useradminWidget(state.filteredUsersList.isEmpty
+                              _compoundWidget(state.filteredUsersList.isEmpty
                                   ? state.usersList[index]
                                   : state.filteredUsersList[index])),
                     ),
@@ -83,8 +80,7 @@ class UsersAdminPage extends StatelessWidget {
     );
   }
 
-  Widget _useradminWidget(final User? user) =>
-      Builder(builder: (final context) {
+  Widget _compoundWidget(final User? user) => Builder(builder: (final context) {
         if (user != null) {
           return SingleChildScrollView(
             child: Container(
@@ -114,27 +110,56 @@ class UsersAdminPage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
+                        flex: 2,
                         child: Padding(
                           padding: const EdgeInsets.all(8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    textStyle: const TextStyle(
-                                  fontSize: 12,
-                                )),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => UserDetailPage(
-                                          uid: user.uid,
-                                        ),
-                                      ));
-                                },
-                                child: const Text('detail'),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 40,
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        textStyle: const TextStyle(
+                                      fontSize: 12,
+                                    )),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AddCompoundPage(
+                                              user: user,
+                                            ),
+                                          ));
+                                    },
+                                    child: const Text('add'),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        textStyle: const TextStyle(
+                                      fontSize: 12,
+                                    )),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserDetailPage(
+                                              uid: user.uid,
+                                            ),
+                                          ));
+                                    },
+                                    child: const Text('detail'),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -154,7 +179,7 @@ class UsersAdminPage extends StatelessWidget {
 class _UIDSearchInput extends StatelessWidget {
   @override
   Widget build(final BuildContext context) =>
-      BlocBuilder<UserAdminCubit, UserAdminState>(
+      BlocBuilder<CompoundCubit, CompoundState>(
         buildWhen: (final previous, final current) =>
             previous.uidSearch != current.uidSearch,
         builder: (final context, final state) => Padding(
@@ -166,9 +191,9 @@ class _UIDSearchInput extends StatelessWidget {
                 height: 5,
               ),
               TextField(
-                key: const Key('useradminForm_uidSearchInput_textField'),
+                key: const Key('compoundForm_uidSearchInput_textField'),
                 onChanged: (final uidSearch) =>
-                    context.read<UserAdminCubit>().uidSearchChanged(uidSearch),
+                    context.read<CompoundCubit>().uidSearchChanged(uidSearch),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   enabledBorder: OutlineInputBorder(

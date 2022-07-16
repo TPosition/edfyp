@@ -55,7 +55,7 @@ class ComplaintPage extends StatelessWidget {
                           },
                         ),
                         const Text(
-                          'Application',
+                          'Complaints',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,

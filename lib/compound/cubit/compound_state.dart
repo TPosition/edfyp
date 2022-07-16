@@ -2,22 +2,26 @@ part of 'compound_cubit.dart';
 
 class CompoundState extends Equatable {
   const CompoundState({
-    final this.licensesList = const [],
-    final this.filteredLicensesList = const [],
+    final this.usersList = const [],
+    final this.filteredUsersList = const [],
+    final this.uidSearch = '',
   });
 
-  final List<License> licensesList;
-  final List<License?> filteredLicensesList;
+  final List<User> usersList;
+  final List<User?> filteredUsersList;
+  final String uidSearch;
 
   @override
-  List<Object> get props => [licensesList, filteredLicensesList];
+  List<Object> get props => [usersList, filteredUsersList, uidSearch];
 
   CompoundState copyWith({
-    final List<License>? licensesList,
-    final List<License?>? filteredLicensesList,
+    final List<User>? usersList,
+    final List<User?>? filteredUsersList,
+    final String? uidSearch,
   }) =>
       CompoundState(
-        licensesList: licensesList ?? this.licensesList,
-        filteredLicensesList: filteredLicensesList ?? this.filteredLicensesList,
+        usersList: usersList ?? this.usersList,
+        filteredUsersList: filteredUsersList ?? this.filteredUsersList,
+        uidSearch: uidSearch ?? this.uidSearch,
       );
 }
