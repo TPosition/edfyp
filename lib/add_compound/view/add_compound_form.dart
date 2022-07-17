@@ -1,4 +1,5 @@
 import 'package:eispkp/add_compound/cubit/add_compound_cubit.dart';
+import 'package:eispkp/user_detail/view/user_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:eispkp/compounds/bloc/compounds_bloc.dart';
@@ -90,6 +91,46 @@ class AddCompoundForm extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                              top: 25,
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                      user.uid.substring(0, 5),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          textStyle: const TextStyle(
+                                        fontSize: 12,
+                                      )),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  UserDetailPage(
+                                                uid: user.uid,
+                                              ),
+                                            ));
+                                      },
+                                      child: const Text('detail'),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 25,
