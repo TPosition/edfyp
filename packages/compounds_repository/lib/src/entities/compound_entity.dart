@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 class CompoundEntity extends Equatable {
   final String id;
   final String uid;
-  final double amount;
+  final num amount;
   final String reason;
   final String agency;
   final String plate;
@@ -52,7 +52,7 @@ class CompoundEntity extends Equatable {
     return CompoundEntity(
       id: json['id'] as String,
       uid: json['uid'] as String,
-      amount: json['amount'] as double,
+      amount: json['amount'] as num,
       agency: json['agency'] as String,
       reason: json['reason'] as String,
       plate: json['plate'] as String,

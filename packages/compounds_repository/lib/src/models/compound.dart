@@ -6,7 +6,7 @@ import '../entities/entities.dart';
 class Compound {
   final String id;
   final String uid;
-  final double amount;
+  final num amount;
   final String reason;
   final String agency;
   final String plate;

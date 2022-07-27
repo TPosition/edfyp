@@ -63,14 +63,6 @@ class HomePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
-            "${user.fname} ${user.lname}",
-            style: GoogleFonts.roboto(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xff2c405b),
-            ),
-          ),
           const Expanded(
             child: SizedBox(),
           ),

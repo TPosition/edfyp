@@ -351,14 +351,12 @@ class _ReasonInput extends StatelessWidget {
       BlocBuilder<AddCompoundCubit, AddCompoundState>(
         buildWhen: (final previous, final current) =>
             previous.reason != current.reason,
-        builder: (final context, final state) => Flexible(
-          child: TextFormField(
-            key: const Key('addCompoundForm_ReasonInput_textField'),
-            onChanged: (final reason) =>
-                context.read<AddCompoundCubit>().reasonChanged(reason),
-            decoration: const InputDecoration(
-              hintText: "Enter Your Reason",
-            ),
+        builder: (final context, final state) => TextFormField(
+          key: const Key('addCompoundForm_ReasonInput_textField'),
+          onChanged: (final reason) =>
+              context.read<AddCompoundCubit>().reasonChanged(reason),
+          decoration: const InputDecoration(
+            hintText: "Enter Your Reason",
           ),
         ),
       );
@@ -374,14 +372,12 @@ class _PlateInput extends StatelessWidget {
       BlocBuilder<AddCompoundCubit, AddCompoundState>(
         buildWhen: (final previous, final current) =>
             previous.plate != current.plate,
-        builder: (final context, final state) => Flexible(
-          child: TextFormField(
-            key: const Key('addCompoundForm_PlateInput_textField'),
-            onChanged: (final plate) =>
-                context.read<AddCompoundCubit>().plateChanged(plate),
-            decoration: const InputDecoration(
-              hintText: "Enter The Plate Number",
-            ),
+        builder: (final context, final state) => TextFormField(
+          key: const Key('addCompoundForm_PlateInput_textField'),
+          onChanged: (final plate) =>
+              context.read<AddCompoundCubit>().plateChanged(plate),
+          decoration: const InputDecoration(
+            hintText: "Enter The Plate Number",
           ),
         ),
       );
@@ -397,19 +393,17 @@ class _AmountInput extends StatelessWidget {
       BlocBuilder<AddCompoundCubit, AddCompoundState>(
         buildWhen: (final previous, final current) =>
             previous.amount != current.amount,
-        builder: (final context, final state) => Flexible(
-          child: TextFormField(
-            key: const Key('addCompoundForm_AmountInput_textField'),
-            onChanged: (final amount) {
-              if (amount != '')
-                context
-                    .read<AddCompoundCubit>()
-                    .amountChanged(double.parse(amount));
-            },
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              hintText: "Enter Your Phone Number",
-            ),
+        builder: (final context, final state) => TextFormField(
+          key: const Key('addCompoundForm_AmountInput_textField'),
+          onChanged: (final amount) {
+            if (amount != '')
+              context
+                  .read<AddCompoundCubit>()
+                  .amountChanged(double.parse(amount));
+          },
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            hintText: "Enter Your Amount",
           ),
         ),
       );
